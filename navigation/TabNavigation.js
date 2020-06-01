@@ -1,12 +1,12 @@
 import "react-native-gesture-handler";
 import React from "react";
-import { View, Text, TouchableOpacity } from "react-native";
+import { View } from "react-native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
+import stackFactory from "./stackFactory";
 import Home from "../screens/Home";
 import Search from "../screens/Search";
 import Notifications from "../screens/Notifications";
 import Profile from "../screens/Profile";
-import stackFactory from "./stackFactory";
 import MessageLink from "../components/MessageLink";
 
 const TabNavigation = createBottomTabNavigator();
@@ -30,7 +30,7 @@ export default () => {
                         headerStyle: {
                             height: 80,
                         },
-                        headerRight: MessageLink,
+                        headerRight: () => <MessageLink />,
                     },
                 }}
             />
