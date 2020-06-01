@@ -20,7 +20,7 @@ const PhotoTab = () => {
 
 export default () => {
     return (
-        <PhotoNavigation.Navigator headerMode="none">
+        <PhotoNavigation.Navigator>
             <PhotoNavigation.Screen name="PhotoTab" component={PhotoTab} />
             <PhotoNavigation.Screen name="UploadPhoto" component={UploadPhoto} />
         </PhotoNavigation.Navigator>
