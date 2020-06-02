@@ -1,6 +1,7 @@
 import React from "react";
 import styled from "styled-components";
-import { TouchableOpacity } from "react-native-gesture-handler";
+import constants from "../constants";
+import AuthButton from "../../components/AuthButton";
 
 const View = styled.View`
     justify-content: center;
@@ -8,16 +9,35 @@ const View = styled.View`
     flex: 1;
 `;
 
-const Text = styled.Text``;
+const Image = styled.Image`
+    width: ${constants.width / 2.5};
+`;
 
-export default ({ navigation: { navigate } }) => (
+const Touchable = styled.TouchableOpacity``;
+
+const LoginLink = styled.View`
+    border: 1px solid ${(props) => props.theme.blueColor};
+    padding: 10px;
+    margin: 0px 50px;
+    border-radius: 4px;
+    width: ${constants.width / 1.8};
+    margin-top: 20px;
+`;
+
+const LoginLinkText = styled.Text`
+    color: ${(props) => props.theme.blueColor};
+    text-align: center;
+    font-weight: 600;
+`;
+
+export default ({ navigation }) => (
     <View>
-        <Text>Auth Home</Text>
-        <TouchableOpacity onPress={() => navigate("Login")}>
-            <Text>Go to Log In</Text>
-        </TouchableOpacity>
-        <TouchableOpacity onPress={() => navigate("Signup")}>
-            <Text>Go to Sign Up</Text>
-        </TouchableOpacity>
+        <Image resizeMode={"contain"} source={require("../../assets/logo.png")} />
+        <AuthButton text="Create New Account" onPress={() => navigation.navigate("Signup")} />
+        <Touchable onPress={() => navigation.navigate("Login")}>
+            <LoginLink>
+                <LoginLinkText>Log In</LoginLinkText>
+            </LoginLink>
+        </Touchable>
     </View>
 );
