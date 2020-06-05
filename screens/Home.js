@@ -4,6 +4,7 @@ import { gql } from "apollo-boost";
 import { useQuery } from "react-apollo-hooks";
 import { ScrollView, RefreshControl } from "react-native";
 import Loader from "../components/Loader";
+import Post from "../components/Post";
 
 const FEED_QUERY = gql`
     {
@@ -36,12 +37,8 @@ const FEED_QUERY = gql`
 `;
 
 const View = styled.View`
-    justify-content: center;
-    align-items: center;
-    flex: 1;
     background-color: white;
 `;
-const Text = styled.Text``;
 
 export default () => {
     const [refreshing, setRefreshing] = useState(false);
@@ -57,8 +54,10 @@ export default () => {
         }
     };
     return (
-        <ScrollView refreshControl={<RefreshControl refreshing={refreshing} onRefresh={refresh} />}>
-            {loading ? <Loader /> : <Text>Hello</Text>}
-        </ScrollView>
+        <View>
+            <ScrollView refreshControl={<RefreshControl refreshing={refreshing} onRefresh={refresh} />}>
+                {loading ? <Loader /> : data && data.seeFeed && data.seeFeed.map((post) => <Post key={post.id} {...post} />)}
+            </ScrollView>
+        </View>
     );
 };
