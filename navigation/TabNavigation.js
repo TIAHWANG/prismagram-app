@@ -4,10 +4,10 @@ import { View, Image } from "react-native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { Platform } from "react-native";
 import stackFactory from "./stackFactory";
-import Home from "../screens/Home";
-import Search from "../screens/Search";
-import Notifications from "../screens/Notifications";
-import Profile from "../screens/Profile";
+import Home from "../screens/Tabs/Home";
+import Search from "../screens/Tabs/Search";
+import Notifications from "../screens/Tabs/Notifications";
+import Profile from "../screens/Tabs/Profile";
 import MessageLink from "../components/MessageLink";
 import NavIcon from "../components/NavIcon";
 
@@ -48,12 +48,7 @@ export default () => {
                 component={stackFactory}
                 initialParams={{
                     initialRoute: Search,
-                    customConfig: {
-                        title: "Search",
-                        headerStyle: {
-                            height: 80,
-                        },
-                    },
+                    customConfig: ({ navigation }) => Search.navigationOptions({ navigation }),
                 }}
                 options={{
                     tabBarIcon: ({ focused }) => <NavIcon focused={focused} name={Platform.OS === "ios" ? "ios-search" : "md-search"} />,

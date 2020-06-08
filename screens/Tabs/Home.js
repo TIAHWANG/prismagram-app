@@ -3,8 +3,8 @@ import styled from "styled-components";
 import { gql } from "apollo-boost";
 import { useQuery } from "react-apollo-hooks";
 import { ScrollView, RefreshControl } from "react-native";
-import Loader from "../components/Loader";
-import Post from "../components/Post";
+import Loader from "../../components/Loader";
+import Post from "../../components/Post";
 
 const FEED_QUERY = gql`
     {
