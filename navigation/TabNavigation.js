@@ -2,6 +2,7 @@ import "react-native-gesture-handler";
 import React from "react";
 import { View, Image } from "react-native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
+import { createStackNavigator } from "@react-navigation/stack";
 import { Platform } from "react-native";
 import stackFactory from "./stackFactory";
 import Home from "../screens/Tabs/Home";
@@ -10,13 +11,24 @@ import Notifications from "../screens/Tabs/Notifications";
 import Profile from "../screens/Tabs/Profile";
 import MessageLink from "../components/MessageLink";
 import NavIcon from "../components/NavIcon";
+import Detail from "../screens/Detail";
 
 const TabNavigation = createBottomTabNavigator();
+const Stack = createStackNavigator();
+
+const Stacks = () => {
+    return (
+        <Stack.Navigator screenOptions={{ headerStyle: { ...stackStyles } }}>
+            <Stack.Screen name="Search" component={Search} />
+            <Stack.Screen name="Detail" component={Detail} />
+        </Stack.Navigator>
+    );
+};
 
 export default () => {
     return (
         <TabNavigation.Navigator
-            initialRouteName="Home"
+            initialRouteName="Search"
             tabBarOptions={{
                 showLabel: false,
             }}
@@ -48,7 +60,6 @@ export default () => {
                 component={stackFactory}
                 initialParams={{
                     initialRoute: Search,
-                    customConfig: ({ navigation }) => Search.navigationOptions({ navigation }),
                 }}
                 options={{
                     tabBarIcon: ({ focused }) => <NavIcon focused={focused} name={Platform.OS === "ios" ? "ios-search" : "md-search"} />,
