@@ -2,7 +2,7 @@ import "react-native-gesture-handler";
 import React from "react";
 import { View, Image } from "react-native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import { createStackNavigator } from "@react-navigation/stack";
+import { createStackNavigator, HeaderTitle } from "@react-navigation/stack";
 import { Platform } from "react-native";
 import stackFactory from "./stackFactory";
 import Home from "../screens/Tabs/Home";
@@ -18,6 +18,7 @@ import UserDetail from "../screens/UserDetail";
 const TabNavigation = createBottomTabNavigator();
 const SearchStack = createStackNavigator();
 const HomeStack = createStackNavigator();
+const ProfileStack = createStackNavigator();
 
 const SearchStackScreen = () => {
     return (
@@ -31,13 +32,7 @@ const SearchStackScreen = () => {
         >
             <SearchStack.Screen name="Search" component={Search} />
             <SearchStack.Screen name="Detail" component={Detail} />
-            <SearchStack.Screen
-                name="UserDetail"
-                component={UserDetail}
-                options={{
-                    headerTitle: "Profile",
-                }}
-            />
+            <SearchStack.Screen name="UserDetail" component={UserDetail} options={{}} />
         </SearchStack.Navigator>
     );
 };
@@ -62,14 +57,25 @@ const HomeStackScreen = () => {
                     ),
                 }}
             />
-            <HomeStack.Screen
-                name="UserDetail"
-                component={UserDetail}
-                options={{
-                    headerTitle: "Profile",
-                }}
-            />
+            <HomeStack.Screen name="UserDetail" component={UserDetail} options={({ route }) => ({ title: route.params.username })} />
         </HomeStack.Navigator>
+    );
+};
+
+const ProfileStackScreen = () => {
+    return (
+        <ProfileStack.Navigator
+            initialRouteName="Search"
+            screenOptions={{
+                headerBackTitleVisible: false,
+                headerTintColor: styles.blackColor,
+                headerTitle: "Profile",
+            }}
+        >
+            <ProfileStack.Screen name="Profile" component={Profile} />
+            <ProfileStack.Screen name="Detail" component={Detail} />
+            <ProfileStack.Screen name="UserDetail" component={UserDetail} />
+        </ProfileStack.Navigator>
     );
 };
 
@@ -84,21 +90,6 @@ export default () => {
             <TabNavigation.Screen
                 name="Home"
                 component={HomeStackScreen}
-                // initialParams={{
-                //     initialRoute: Home,
-                //     customConfig: {
-                //         title: "Home",
-                //         headerStyle: {
-                //             height: 80,
-                //         },
-                //         headerRight: () => <MessageLink />,
-                //         headerTitle: (
-                //             <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
-                //                 <Image style={{ height: 30 }} resizeMode="contain" source={require("../assets/logo.png")} />
-                //             </View>
-                //         ),
-                //     },
-                // }}
                 options={{
                     tabBarIcon: ({ focused }) => <NavIcon focused={focused} name={Platform.OS === "ios" ? "ios-home" : "md-home"} />,
                 }}
@@ -146,16 +137,7 @@ export default () => {
             />
             <TabNavigation.Screen
                 name="Profile"
-                component={stackFactory}
-                initialParams={{
-                    initialRoute: Profile,
-                    customConfig: {
-                        title: "Profile",
-                        headerStyle: {
-                            height: 80,
-                        },
-                    },
-                }}
+                component={ProfileStackScreen}
                 options={{
                     tabBarIcon: ({ focused }) => <NavIcon focused={focused} name={Platform.OS === "ios" ? "ios-person" : "md-person"} />,
                 }}
