@@ -12,16 +12,24 @@ import Profile from "../screens/Tabs/Profile";
 import MessageLink from "../components/MessageLink";
 import NavIcon from "../components/NavIcon";
 import Detail from "../screens/Detail";
+import styles from "../styles";
 
 const TabNavigation = createBottomTabNavigator();
-const Stack = createStackNavigator();
+const SearchStack = createStackNavigator();
 
-const Stacks = () => {
+const SearchStackScreen = () => {
     return (
-        <Stack.Navigator screenOptions={{ headerStyle: { ...stackStyles } }}>
-            <Stack.Screen name="Search" component={Search} />
-            <Stack.Screen name="Detail" component={Detail} />
-        </Stack.Navigator>
+        <SearchStack.Navigator
+            initialRouteName="Search"
+            screenOptions={{
+                headerBackTitleVisible: false,
+                headerTintColor: styles.blackColor,
+                headerTitle: "Photo",
+            }}
+        >
+            <SearchStack.Screen name="Search" component={Search} />
+            <SearchStack.Screen name="Detail" component={Detail} />
+        </SearchStack.Navigator>
     );
 };
 
@@ -57,10 +65,7 @@ export default () => {
             />
             <TabNavigation.Screen
                 name="Search"
-                component={stackFactory}
-                initialParams={{
-                    initialRoute: Search,
-                }}
+                component={SearchStackScreen}
                 options={{
                     tabBarIcon: ({ focused }) => <NavIcon focused={focused} name={Platform.OS === "ios" ? "ios-search" : "md-search"} />,
                 }}
