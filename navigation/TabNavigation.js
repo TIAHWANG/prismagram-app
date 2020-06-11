@@ -13,9 +13,11 @@ import MessageLink from "../components/MessageLink";
 import NavIcon from "../components/NavIcon";
 import Detail from "../screens/Detail";
 import styles from "../styles";
+import UserDetail from "../screens/UserDetail";
 
 const TabNavigation = createBottomTabNavigator();
 const SearchStack = createStackNavigator();
+const HomeStack = createStackNavigator();
 
 const SearchStackScreen = () => {
     return (
@@ -29,36 +31,74 @@ const SearchStackScreen = () => {
         >
             <SearchStack.Screen name="Search" component={Search} />
             <SearchStack.Screen name="Detail" component={Detail} />
+            <SearchStack.Screen
+                name="UserDetail"
+                component={UserDetail}
+                options={{
+                    headerTitle: "Profile",
+                }}
+            />
         </SearchStack.Navigator>
+    );
+};
+
+const HomeStackScreen = () => {
+    return (
+        <HomeStack.Navigator
+            screenOptions={{
+                headerBackTitleVisible: false,
+                headerTintColor: styles.blackColor,
+            }}
+        >
+            <HomeStack.Screen
+                name="Home"
+                component={Home}
+                options={{
+                    headerRight: () => <MessageLink />,
+                    headerTitle: (
+                        <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
+                            <Image style={{ height: 30 }} resizeMode="contain" source={require("../assets/logo.png")} />
+                        </View>
+                    ),
+                }}
+            />
+            <HomeStack.Screen
+                name="UserDetail"
+                component={UserDetail}
+                options={{
+                    headerTitle: "Profile",
+                }}
+            />
+        </HomeStack.Navigator>
     );
 };
 
 export default () => {
     return (
         <TabNavigation.Navigator
-            initialRouteName="Search"
+            initialRouteName="Home"
             tabBarOptions={{
                 showLabel: false,
             }}
         >
             <TabNavigation.Screen
                 name="Home"
-                component={stackFactory}
-                initialParams={{
-                    initialRoute: Home,
-                    customConfig: {
-                        title: "Home",
-                        headerStyle: {
-                            height: 80,
-                        },
-                        headerRight: () => <MessageLink />,
-                        headerTitle: (
-                            <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
-                                <Image style={{ height: 30 }} resizeMode="contain" source={require("../assets/logo.png")} />
-                            </View>
-                        ),
-                    },
-                }}
+                component={HomeStackScreen}
+                // initialParams={{
+                //     initialRoute: Home,
+                //     customConfig: {
+                //         title: "Home",
+                //         headerStyle: {
+                //             height: 80,
+                //         },
+                //         headerRight: () => <MessageLink />,
+                //         headerTitle: (
+                //             <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
+                //                 <Image style={{ height: 30 }} resizeMode="contain" source={require("../assets/logo.png")} />
+                //             </View>
+                //         ),
+                //     },
+                // }}
                 options={{
                     tabBarIcon: ({ focused }) => <NavIcon focused={focused} name={Platform.OS === "ios" ? "ios-home" : "md-home"} />,
                 }}
