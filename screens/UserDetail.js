@@ -25,5 +25,6 @@ const styles = StyleSheet.create({
 export default ({ route }) => {
     const { username } = route.params;
     const { loading, data } = useQuery(GET_USER, { variables: { username } });
+    console.log(data);
     return <ScrollView style={styles.ScrollView}>{loading ? <Loader /> : data && data.seeUser && <UserProfile {...data.seeUser} />}</ScrollView>;
 };

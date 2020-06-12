@@ -42,7 +42,9 @@ const ProfileMeta = styled.View`
     padding-right: 20px;
 `;
 
-const Bio = styled.Text``;
+const Bio = styled.Text`
+    margin-top: 2px;
+`;
 
 const ButtonContainer = styled.View`
     padding-top: 5px;
