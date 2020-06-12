@@ -19,9 +19,6 @@ const PhotoTab = () => {
                 labelStyle: { color: styles.blackColor, fontWeight: "600" },
                 style: { paddingBottom: 20 },
             }}
-            screenOptions={{
-                headerTitle: "he",
-            }}
         >
             <PhotoTabs.Screen name="SelectPhoto" component={SelectPhoto} options={{ tabBarLabel: "Select" }} />
             <PhotoTabs.Screen name="TakePhoto" component={TakePhoto} options={{ tabBarLabel: "Take" }} />
